@@ -201,9 +201,24 @@ Like many WordPress themes and plugins, Picturefill.WP can be altered and extend
 * `picturefill_wp_image_attribute_{$attribute}`
 * `picturefill_wp_use_explicit_width`
 * `picturefill_wp_output_src`
+* `picturefill_wp_process_this_image`
 * `picturefill_wp_use_cdn`: use true to use 3rd party CDNs for picturefill (default `false`
 * `picturefill_wp_cdn_urlstring`: sprintf URL to 3rd party CDN (default `http%s://cdnjs.cloudflare.com/ajax/libs/picturefill/%s/picturefill%s.js`)
 
+#### Examples
+
+##### To exclude svg from processing
+
+```php
+add_filter('picturefill_wp_process_this_image', 'picturefill_wp_exclude_svg', 10, 3);
+
+function picturefill_wp_exclude_svg($process, $image, $html){
+    if(preg_match('/.svg$/i', $image->getAttribute('src'))){
+    return false;
+    }
+    return $process;
+}
+```
 
 Use With Other Plugins
 ----------------------
