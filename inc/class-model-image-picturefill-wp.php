@@ -141,12 +141,13 @@ if(!class_exists('Model_Image_Picturefill_WP')){
 
     private function get_unadjusted_size(array $image_attachment_data, array $image_attributes){
       if(empty($image_attributes['width'])){
-        $image_attributes_url_width_height = array($image_attributes['src'], $image_attributes['width'], $image_attributes['height']);
-        $image_attributes_url_width_height = $this->get_image_width_height($image_attributes_url_width_height);
-        $image_attributes['width'] = $image_attributes_url_width_height[1];
-        $image_attributes['height'] = $image_attributes_url_width_height[2];
-
-        $this->image_attributes = $image_attributes;
+        $image_attributes_url_width_height = $this->get_image_width_height( array('url' => $image_attributes['src'] ) );
+        if ( isset($image_attributes['width']) ) {
+          $image_attributes['width'] = $image_attributes_url_width_height['width'];
+          $image_attributes['height'] = $image_attributes_url_width_height['height'];
+          // save for future use?
+          $this->image_attributes = $image_attributes;
+        }
       }
       foreach($image_attachment_data as $attachment_size => $attachment_data){
         if($attachment_data['url'] === $image_attributes['src'] && false === strstr($attachment_size, '@2x')){
