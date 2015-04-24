@@ -68,11 +68,25 @@ if(!class_exists('Picturefill_WP')){
     }
 
     public function register_picturefill_scripts(){
-      if(WP_DEBUG){
-        wp_register_script('picturefill', PICTUREFILL_WP_URL . 'js/libs/picturefill.js', array(), PICTUREFILL_JS_VERSION, true);
-      }else{
-        wp_register_script('picturefill', PICTUREFILL_WP_URL . 'js/libs/picturefill.min.js', array(), PICTUREFILL_JS_VERSION, true);
+      // For safety, don't use cdn on admin pages (which normally can't happen unless 4d0d3d1 is committed)
+      if ( apply_filters( 'picturefill_use_cdn', false ) && !is_admin() ) {
+        $picturefill_url =  sprintf(
+          apply_filters( 'picturefill_cdn_urlstring', 'http%s://cdnjs.cloudflare.com/ajax/libs/picturefill/%s/picturefill%s.js' ),
+          ( is_ssl() ) ? 's' : '',
+          PICTUREFILL_JS_VERSION,
+          ( WP_DEBUG ) ? '' : '.min'
+        );
+        $version = null; // no need to append querystring if going to a CDN
+      } else {
+        $picturefill_url = sprintf(
+          '%s/js/libs/picturefill%s.js',
+          PICTUREFILL_WP_URL,
+          ( WP_DEBUG ) ? '' : '.min'
+        );
+        $version = PICTUREFILL_JS_VERSION;
       }
+
+      wp_register_script( 'picturefill', $picturefill_url, array(), $version );
     }
 
     public function picturefill_wp_apply_to_html($html, $cache = null){
