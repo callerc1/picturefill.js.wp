@@ -36,11 +36,8 @@ if(!class_exists('Picturefill_WP')){
       self::picturefill_wp_clear_options();
     }
 
-    public static function picturefill_wp_clear_options(){
-      $picturefill_wp_transients = self::$wpdb->get_col('SELECT option_name FROM ' . self::$wpdb->options . ' WHERE option_name LIKE \'%picturefill_wp%\'');
-      foreach($picturefill_wp_transients as $transient){
-        delete_option($transient);
-      }
+    public static function picturefill_wp_clear_options() {
+      self::picturefill_wp_clear_transients();
     }
 
     public static function picturefill_wp_clear_transients(){
