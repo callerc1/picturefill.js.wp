@@ -104,6 +104,13 @@ if(!class_exists('Model_Image_Picturefill_WP')){
         $attributes['sizes_name'] = $sizes_match[1];
       }
 
+      // @see https://github.com/kylereicks/picturefill.js.wp/issues/54
+      if ( !$attributes['size'] ) {
+        if(preg_match('/(?:(?:^|\s)attachment-)([\w|-]+)/', $attributes['class'], $sizes_match)){
+          $attributes['sizes_name'] = $sizes_match[1];
+        }
+      }
+
       $this->image_attributes = apply_filters('picturefill_wp_initial_image_attributes', $attributes);
     }
 
