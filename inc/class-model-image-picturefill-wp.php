@@ -105,7 +105,7 @@ if(!class_exists('Model_Image_Picturefill_WP')){
       }
 
       // @see https://github.com/kylereicks/picturefill.js.wp/issues/54
-      if ( !$attributes['size'] ) {
+      if ( !isset($attributes['size_name']) ) {
         if(preg_match('/(?:(?:^|\s)attachment-)([\w|-]+)/', $attributes['class'], $sizes_match)){
           $attributes['sizes_name'] = $sizes_match[1];
         }
