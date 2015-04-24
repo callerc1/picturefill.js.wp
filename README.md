@@ -201,6 +201,8 @@ Like many WordPress themes and plugins, Picturefill.WP can be altered and extend
 * `picturefill_wp_image_attribute_{$attribute}`
 * `picturefill_wp_use_explicit_width`
 * `picturefill_wp_output_src`
+* `picturefill_wp_use_cdn`: use true to use 3rd party CDNs for picturefill (default `false`
+* `picturefill_wp_cdn_urlstring`: sprintf URL to 3rd party CDN (default `http%s://cdnjs.cloudflare.com/ajax/libs/picturefill/%s/picturefill%s.js`)
 
 
 Use With Other Plugins

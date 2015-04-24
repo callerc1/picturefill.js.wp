@@ -69,9 +69,9 @@ if(!class_exists('Picturefill_WP')){
 
     public function register_picturefill_scripts(){
       // For safety, don't use cdn on admin pages (which normally can't happen unless 4d0d3d1 is committed)
-      if ( apply_filters( 'picturefill_use_cdn', false ) && !is_admin() ) {
+      if ( apply_filters( 'picturefill_wp_use_cdn', false ) && !is_admin() ) {
         $picturefill_url =  sprintf(
-          apply_filters( 'picturefill_cdn_urlstring', 'http%s://cdnjs.cloudflare.com/ajax/libs/picturefill/%s/picturefill%s.js' ),
+          apply_filters( 'picturefill_wp_cdn_urlstring', 'http%s://cdnjs.cloudflare.com/ajax/libs/picturefill/%s/picturefill%s.js' ),
           ( is_ssl() ) ? 's' : '',
           PICTUREFILL_JS_VERSION,
           ( WP_DEBUG ) ? '' : '.min'
