@@ -147,7 +147,20 @@ if(!class_exists('Picturefill_WP')){
       return $this->model->register_srcset($handle, $srcset_array, $attached);
     }
 
+    /**
+     * Does the work documented by picturefill_wp_register_sizes()
+     * 
+     * Put in a trap because it's possible to call this thing before wp_loaded
+     * initializes model. I'd move the model, but I don't know why the model
+     * is initialized so late. :-(
+     * 
+     * @param  string $handle       [description]
+     * @param  string $sizes_string [description]
+     * @param  mixed  $attached     [description]
+     * @return void
+     */
     public function register_sizes($handle, $sizes_string, $attached = array()){
+      if ( !$this->model ) { return; }
       if(is_string($attached)){
         return $this->model->register_sizes($handle, $sizes_string, array($attached));
       }
