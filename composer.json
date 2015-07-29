@@ -1,0 +1,12 @@
+{
+    "name": "callerc1/picturefill.js.wp",
+    "description": "picturefill.js.wp",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Chris Caller",
+            "email": "callerc1@gmail.com"
+        }
+    ],
+    "require": {}
+}
